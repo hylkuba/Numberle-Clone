@@ -5,6 +5,8 @@
 
 #include "controls.h"
 #include "ui.h"
+#include "equation.h"
+#include "equationGen.h"
 
 class CApplication {
 public:
@@ -39,4 +41,25 @@ public:
      * @return 0 if game was successfully closed
      */
     int run();
+
+private:
+    /**
+     * @brief Left equation numbers values
+     * 
+     */
+    int leftEqNum1, leftEqNum2, leftEqNum3;
+    
+    /**
+     * @brief Right equation number value
+     * 
+     */
+    int rightEqNum;
+
+    /**
+     * @brief Equation to be found represented as array of 8 chars
+     * 
+     */
+    char equation[8];
+
+    CEquationGen generator;
 };
