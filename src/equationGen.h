@@ -71,4 +71,37 @@ private:
      * @return int Returns -1 if value in rnd is not in interval <0, 1)
      */
     int spacePosition(double rnd);
+
+    /**
+     * @brief Generates random equation
+     * 
+     * @param equation 
+     * @param lNum1 
+     * @param lNum2 
+     * @param lNum3 
+     * @param rNum 
+     */
+    void fifthIndex(char equation[], int &lNum1, int &lNum2, int &lNum3, int &rNum);
+
+    /**
+     * @brief Generates random equation
+     * 
+     * @param equation 
+     * @param lNum1 
+     * @param lNum2 
+     * @param lNum3 
+     * @param rNum 
+     */
+    void sixthIndex(char equation[], int &lNum1, int &lNum2, int &lNum3, int &rNum);
+
+    /**
+     * @brief Generates random equation
+     * 
+     * @param equation 
+     * @param lNum1 
+     * @param lNum2 
+     * @param lNum3 
+     * @param rNum 
+     */
+    void seventhIndex(char equation[], int &lNum1, int &lNum2, int &lNum3, int &rNum);
 };

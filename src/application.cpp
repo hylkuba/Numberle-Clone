@@ -8,9 +8,25 @@
 #include <iostream>
 
 int CApplication::run() {
-    std::cout << "Working" << std::endl;
+    std::cout << "Program Started!" << std::endl;
 
-    generator.create(equation, leftEqNum1, leftEqNum2, leftEqNum3, rightEqNum);
+    while(true) {
+        generator.create(equation, leftEqNum1, leftEqNum2, leftEqNum3, rightEqNum);
+
+        resetVar();
+    }
 
     return 0;
+}
+
+void CApplication::resetVar() {
+    leftEqNum1 = -1;
+    leftEqNum2 = -1;
+    leftEqNum3 = -1;
+    rightEqNum = -1;
+
+    for (size_t i = 0; i < 8; i++)
+    {
+        equation[i] = '0';
+    }   
 }

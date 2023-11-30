@@ -78,7 +78,7 @@ int CEquationGen::generateRandomNumber(int numDigits) {
     return std::rand() % (maxValue - minValue + 1) + minValue;
 }
 
-int spacePosition(double rnd) {
+int CEquationGen::spacePosition(double rnd) {
     if(rnd < 0) {
         std::cerr << "Invalid number passed to generateProbability." << std::endl;
         return -1;
@@ -89,4 +89,16 @@ int spacePosition(double rnd) {
     if(rnd < 0.8) return 1;
 
     return 2;
+}
+
+void CEquationGen::fifthIndex(char equation[], int &lNum1, int &lNum2, int &lNum3, int &rNum) {
+
+}
+
+void CEquationGen::fifthIndex(char equation[], int &lNum1, int &lNum2, int &lNum3, int &rNum) {
+
+}
+
+void CEquationGen::fifthIndex(char equation[], int &lNum1, int &lNum2, int &lNum3, int &rNum) {
+
 }

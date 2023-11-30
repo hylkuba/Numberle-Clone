@@ -44,6 +44,12 @@ public:
 
 private:
     /**
+     * @brief Sets all nums to -1, equation to string of zeroes
+     * 
+     */
+    void resetVar();
+
+    /**
      * @brief Left equation numbers values
      * 
      */
