@@ -31,4 +31,37 @@ public:
      * 
      */
     ~CUi() = default;
+
+    /**
+     * @brief Prints dash (-) symbols as a separator
+     * 
+     */
+    void separationLine();
+
+    /**
+     * @brief Prints separator (|)
+     * 
+     */
+    void separator();
+
+    /**
+     * @brief Prints character in green color
+     * 
+     * @param c Character to be displayed
+     */
+    void green(char c);
+
+    /**
+     * @brief Prints character in yellow color
+     * 
+     * @param c Character to be displayed
+     */
+    void yellow(char c);
+
+    /**
+     * @brief Prints character in gray color
+     * 
+     * @param c Character to be displayed
+     */
+    void gray(char c);
 };
