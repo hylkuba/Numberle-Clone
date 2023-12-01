@@ -13,55 +13,40 @@
 const char CEquationGen::operators[4] = {'+', '-', '*', '/'};
 const char CEquationGen::digits[10] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
 
-void CEquationGen::create(char equation[], int &lNum1, int &lNum2, int &lNum3, int &rNum) {
+CEquationGen::CEquationGen() {
+    std::srand(static_cast<unsigned int>(std::time(nullptr)));
+}
+
+void CEquationGen::create(char equation[], int &lNum1, int &lNum2, int &lNum3, int &rNum, char &op1, char &op2) {
     int rndPos = spacePosition(generateProbability());
 
     if(rndPos == -1) return;
     
     switch(rndPos) {
         case 0:
-            /*  
-                *Equal sign on 5th index
-                *Num1 and Num2 exists
-                !Num3 doesn't
-                ?Combinations of digit sizes (1-2), (2-1)
-                ?rNum must be 3 digit
-                *Only 2 options: Either multiplication of 2 numbers that exceeds 100 OR 91 + 9 and more
-            */
+           fifthIndex(equation, lNum1, lNum2, rNum, op1);
+           lNum3 = -1;
+           op2 = '?';
+           std::cout << "fifth" << std::endl;
+           break;
         case 1:
-            /*
-                *Equal sign on 6th index
-                *1st case:
-                    *Num1 and Num2 exists
-                    !Num3 doesn't
-                    ?Combinations of digit sizes (1-3), (2-2), (3-1)
-                *2nd case:
-                    *Num1 and Num2 and Num3 all exists
-                    ?The only possible combination (1-1-1)
-                ?rNum must be 2 digits
-            */
+           sixthIndex(equation, lNum1, lNum2, lNum3, rNum, op1, op2);
+           break;
         case 2:
-            /*
-                *Equal sign on 7th index
-                *1st case:
-                    *Num1 and Num2 exists
-                    !Num3 doesn't
-                    ?Combinations of digit sizes (3-2), (2-3)
-                *2nd case:
-                    *Num1 and Num2 and Num3 all exists
-                    ?Combinations of digit sizes (2-1-1), (1-2-1), (1-1-2)
-                ?rNum must be 1 digit
-            */
+            seventhIndex(equation, lNum1, lNum2, lNum3, rNum, op1, op2);
+            break;
         default:
             // Shouldn't ever happen
-            return;
+            std::cerr << "Invalid value of rndPos in CEquationGen::create()." << std::endl;
     }
 }
 
 double CEquationGen::generateProbability() {
-    std::srand(std::time(0));
+    int randomInt = std::rand();
 
-    return static_cast<double>(std::rand()) / RAND_MAX;
+    double randomDouble = static_cast<double>(randomInt) / RAND_MAX;
+
+    return randomDouble;
 }
 
 int CEquationGen::generateRandomNumber(int numDigits) {
@@ -69,8 +54,6 @@ int CEquationGen::generateRandomNumber(int numDigits) {
         std::cerr << "Invalid number of digits." << std::endl;
         return -1;
     }
-
-    std::srand(static_cast<unsigned int>(std::time(0)));
 
     int minValue = static_cast<int>(std::pow(10, numDigits - 1));
     int maxValue = static_cast<int>(std::pow(10, numDigits) - 1);
@@ -91,14 +74,76 @@ int CEquationGen::spacePosition(double rnd) {
     return 2;
 }
 
-void CEquationGen::fifthIndex(char equation[], int &lNum1, int &lNum2, int &lNum3, int &rNum) {
+/*  
+    *Equal sign on 5th index
+    *Num1 and Num2 exists
+    !Num3 doesn't
+    ?Combinations of digit sizes (1-2), (2-1)
+    ?rNum must be 3 digit
+    *Only 2 options: Either multiplication of 2 numbers that exceeds 100 OR 91 + 9 and more
+*/
+void CEquationGen::fifthIndex(char equation[], int &lNum1, int &lNum2, int &rNum, char &op1) {
+    int op1Index, op2Index = -1, eqIndex = 4;
+
+    // Generate probability of which number is 2 digit
+    if(generateProbability() < 0.5) {
+        lNum1 = generateRandomNumber(2);
+        lNum2 = generateRandomNumber(1);
+        while(lNum1 * lNum2 < 100) {
+            lNum1 = generateRandomNumber(2);
+            lNum2 = generateRandomNumber(1);
+        }
+    } else {
+        lNum1 = generateRandomNumber(1);
+        lNum2 = generateRandomNumber(2);
+        while(lNum1 * lNum2 < 100) {
+            lNum1 = generateRandomNumber(1);
+            lNum2 = generateRandomNumber(2);
+        }
+    }
+
+    // If one number is bigger than or equal to 91, decide randomly if the binary operator will be multiplication or addition
+    if(lNum1 >= 91 || lNum2 >= 91) {
+        if(generateProbability() < 0.5) {
+            rNum = lNum1 + lNum2;
+            op1 = '+';
+        } else {
+            rNum = lNum1 * lNum2;
+            op1 = '*';
+        }
+    } else {
+        rNum = lNum1 * lNum2;
+        op1 = '*';
+    }
+    controls.storeEquation(equation, lNum1, lNum2, -1, rNum, op1, '?');
+}
+
+/*
+    *Equal sign on 6th index
+    *1st case:
+        *Num1 and Num2 exists
+        !Num3 doesn't
+        ?Combinations of digit sizes (1-3), (2-2), (3-1)
+    *2nd case:
+        *Num1 and Num2 and Num3 all exists
+        ?The only possible combination (1-1-1)
+    ?rNum must be 2 digits
+*/
+void CEquationGen::sixthIndex(char equation[], int &lNum1, int &lNum2, int &lNum3, int &rNum, char &op1, char &op2) {
 
 }
 
-void CEquationGen::sixthIndex(char equation[], int &lNum1, int &lNum2, int &lNum3, int &rNum) {
-
-}
-
-void CEquationGen::seventhIndex(char equation[], int &lNum1, int &lNum2, int &lNum3, int &rNum) {
+/*
+    *Equal sign on 7th index
+    *1st case:
+        *Num1 and Num2 exists
+        !Num3 doesn't
+        ?Combinations of digit sizes (3-2), (2-3)
+    *2nd case:
+        *Num1 and Num2 and Num3 all exists
+        ?Combinations of digit sizes (2-1-1), (1-2-1), (1-1-2)
+    ?rNum must be 1 digit
+*/
+void CEquationGen::seventhIndex(char equation[], int &lNum1, int &lNum2, int &lNum3, int &rNum, char &op1, char &op2) {
 
 }

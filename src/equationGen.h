@@ -5,6 +5,8 @@
 
 #pragma once
 
+#include "controls.h"
+
 #define PROBABILITY_OF_TRUE 0.8
 
 class CEquationGen {
@@ -13,7 +15,7 @@ public:
      * @brief Construct a new CEquationGen object
      * 
      */
-    CEquationGen() = default;
+    CEquationGen();
     
     /**
      * @brief Copy constructor, prohibited
@@ -42,8 +44,10 @@ public:
      * @param lNum2 
      * @param lNum3 
      * @param rNum 
+     * @param op1
+     * @param op2
      */
-    void create(char equation[], int &lNum1, int &lNum2, int &lNum3, int &rNum);
+    void create(char equation[], int &lNum1, int &lNum2, int &lNum3, int &rNum, char &op1, char &op2);
 
 private:
     static const char operators[4];
@@ -78,10 +82,10 @@ private:
      * @param equation 
      * @param lNum1 
      * @param lNum2 
-     * @param lNum3 
      * @param rNum 
+     * @param op1
      */
-    void fifthIndex(char equation[], int &lNum1, int &lNum2, int &lNum3, int &rNum);
+    void fifthIndex(char equation[], int &lNum1, int &lNum2, int &rNum, char &op1);
 
     /**
      * @brief Generates random equation
@@ -91,8 +95,10 @@ private:
      * @param lNum2 
      * @param lNum3 
      * @param rNum 
+     * @param op1
+     * @param op2
      */
-    void sixthIndex(char equation[], int &lNum1, int &lNum2, int &lNum3, int &rNum);
+    void sixthIndex(char equation[], int &lNum1, int &lNum2, int &lNum3, int &rNum, char &op1, char &op2);
 
     /**
      * @brief Generates random equation
@@ -102,6 +108,10 @@ private:
      * @param lNum2 
      * @param lNum3 
      * @param rNum 
+     * @param op1
+     * @param op2
      */
-    void seventhIndex(char equation[], int &lNum1, int &lNum2, int &lNum3, int &rNum);
+    void seventhIndex(char equation[], int &lNum1, int &lNum2, int &lNum3, int &rNum, char &op1, char &op2);
+
+    CControls controls;
 };

@@ -62,10 +62,32 @@ private:
     int rightEqNum;
 
     /**
+     * @brief Chars representing binary operators. '?' when operator is null
+     * 
+     */
+    char op1, op2;
+
+    /**
      * @brief Equation to be found represented as array of 8 chars
      * 
      */
     char equation[8];
 
+    /**
+     * @brief Equation generator object
+     * 
+     */
     CEquationGen generator;
+
+    /**
+     * @brief Ui controls
+     * 
+     */
+    CUi ui;
+
+    /**
+     * @brief Control object
+     * 
+     */
+    CControls controls;
 };

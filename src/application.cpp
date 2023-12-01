@@ -11,8 +11,10 @@ int CApplication::run() {
     std::cout << "Program Started!" << std::endl;
 
     while(true) {
-        generator.create(equation, leftEqNum1, leftEqNum2, leftEqNum3, rightEqNum);
+        generator.create(equation, leftEqNum1, leftEqNum2, leftEqNum3, rightEqNum, op1, op2);
 
+        controls.printEquation(equation);
+        controls.waitForEnter();
         resetVar();
     }
 
