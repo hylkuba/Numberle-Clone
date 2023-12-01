@@ -95,10 +95,10 @@ void CEquationGen::fifthIndex(char equation[], int &lNum1, int &lNum2, int &lNum
 
 }
 
-void CEquationGen::fifthIndex(char equation[], int &lNum1, int &lNum2, int &lNum3, int &rNum) {
+void CEquationGen::sixthIndex(char equation[], int &lNum1, int &lNum2, int &lNum3, int &rNum) {
 
 }
 
-void CEquationGen::fifthIndex(char equation[], int &lNum1, int &lNum2, int &lNum3, int &rNum) {
+void CEquationGen::seventhIndex(char equation[], int &lNum1, int &lNum2, int &lNum3, int &rNum) {
 
 }
