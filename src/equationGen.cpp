@@ -83,8 +83,6 @@ int CEquationGen::spacePosition(double rnd) {
     *Only 2 options: Either multiplication of 2 numbers that exceeds 100 OR 91 + 9 and more
 */
 void CEquationGen::fifthIndex(char equation[], int &lNum1, int &lNum2, int &rNum, char &op1) {
-    int op1Index, op2Index = -1, eqIndex = 4;
-
     // Generate probability of which number is 2 digit
     if(generateProbability() < 0.5) {
         lNum1 = generateRandomNumber(2);
@@ -130,7 +128,32 @@ void CEquationGen::fifthIndex(char equation[], int &lNum1, int &lNum2, int &rNum
     ?rNum must be 2 digits
 */
 void CEquationGen::sixthIndex(char equation[], int &lNum1, int &lNum2, int &lNum3, int &rNum, char &op1, char &op2) {
+    if(generateProbability() < 0.5) {
+        // 1st case
+        lNum3 = -1;
+        op2 = '?';
+        if(generateProbability() < 0.3) {
+            // (1-3)
+        } else if(generateProbability() < 0.7) {
+            // (2-2)
+        } else {
+            // (3-1)
+        }
+        /*
+            TODO: Create generation for which number will have how many digits
+        */
+        controls.storeEquation(equation, lNum1, lNum2, -1, rNum, op1, '?');
+    } else {
+        // 2nd case
+        lNum1 = generateRandomNumber(1);
+        lNum2 = generateRandomNumber(1);
+        lNum3 = generateRandomNumber(1);
 
+        /*
+            TODO: CHECK VALIDITY OF OPERATORS BETWEEN TWO NUMBERS. CREATE LOOP TO GENERATE RANDOM OPERATOR
+        */
+       controls.storeEquation(equation, lNum1, lNum2, lNum3, rNum, op1, op2);
+    }
 }
 
 /*
@@ -145,5 +168,26 @@ void CEquationGen::sixthIndex(char equation[], int &lNum1, int &lNum2, int &lNum
     ?rNum must be 1 digit
 */
 void CEquationGen::seventhIndex(char equation[], int &lNum1, int &lNum2, int &lNum3, int &rNum, char &op1, char &op2) {
+    if(generateProbability() < 0.5) {
+        // 1st case
+        lNum3 = -1;
+        op2 = '?';
+        /*
+            TODO: Create generation for which number will be 2 digits and which will be 3 digits
+        */
+    } else {
+        // 2nd case
+        /*
+            TODO: Create generation for which number will be 2 digits, rest are 1 digit
+        */
+    }
+}
 
+bool CEquationGen::gcd(int a, int b) {
+    while (b != 0) {
+        int temp = b;
+        b = a % b;
+        a = temp;
+    }
+    return a == 1 ? false : true;
 }

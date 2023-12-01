@@ -84,5 +84,5 @@ void CControls::storeEquation(char equation[], int lNum1, int lNum2, int lNum3, 
         count++;
     }
 
-    std::cout << "Supposed: " << lNum1 << op1 << lNum2 << "=" << rNum << std::endl;
+    //std::cout << "Supposed: " << lNum1 << op1 << lNum2 << "=" << rNum << std::endl;
 }

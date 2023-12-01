@@ -113,5 +113,15 @@ private:
      */
     void seventhIndex(char equation[], int &lNum1, int &lNum2, int &lNum3, int &rNum, char &op1, char &op2);
 
+    /**
+     * @brief Checks whether 2 numbers are divisble by each other
+     * 
+     * @param a 
+     * @param b 
+     * @return true If they are
+     * @return false If they aren't
+     */
+    bool gcd(int a, int b);
+    
     CControls controls;
 };
