@@ -27,7 +27,6 @@ void CEquationGen::create(char equation[], int &lNum1, int &lNum2, int &lNum3, i
            fifthIndex(equation, lNum1, lNum2, rNum, op1);
            lNum3 = -1;
            op2 = '?';
-           std::cout << "fifth" << std::endl;
            break;
         case 1:
            sixthIndex(equation, lNum1, lNum2, lNum3, rNum, op1, op2);

@@ -62,6 +62,18 @@ private:
     int rightEqNum;
 
     /**
+     * @brief User inputted numbers
+     * 
+     */
+    int userNum1, userNum2, userNum3, userEqual;
+
+    /**
+     * @brief User inputted char
+     * 
+     */
+    char userOp1, userOp2;
+
+    /**
      * @brief Chars representing binary operators. '?' when operator is null
      * 
      */
