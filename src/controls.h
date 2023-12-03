@@ -119,4 +119,38 @@ private:
      * @return false 
      */
     bool numAssign(bool &num1Exists, bool &num2Exists, bool &equal, int &num1, int &num2, int &num3, int &equalVal, std::string &value);
+
+    /**
+     * @brief Checks if the equation is valid
+     * 
+     * @param num1 
+     * @param num2 
+     * @param num3 
+     * @param op1 
+     * @param op2 
+     * @param equal 
+     * @return true 
+     * @return false 
+     */
+    bool checkSum(int num1, int num2, int num3, char op1, char op2, int equal);
+
+    /**
+     * @brief Find if two numbers are divisible by each other
+     * 
+     * @param a 
+     * @param b 
+     * @return true 
+     * @return false 
+     */
+    bool gcd(int a, int b);
+
+    /**
+     * @brief Returns result of binary operation. -1 in case division doesnt work or there is division by 0
+     * 
+     * @param num1 
+     * @param num2 
+     * @param op 
+     * @return int 
+     */
+    int operation(int num1, int num2, char op);
 };

@@ -88,6 +88,12 @@ void CControls::storeEquation(char equation[], int lNum1, int lNum2, int lNum3, 
 
 void CControls::input(int &num1, int &num2, int &num3, int &equal, char &op1, char &op2) {
     std::string input = "";
+    num1 = -1;
+    num2 = -1;
+    num3 = -1;
+    equal = -1;
+    op1 = '?';
+    op2 = '?';
 
     while(true) {
         std::cin >> input;
@@ -145,16 +151,22 @@ bool CControls::splitEquation(std::string equation, int &num1, int &num2, int &n
             if(!num1exists || !num2exists || equal) {
                 return false;
             }
+            if(!numAssign(num1exists, num2exists, equal, num1, num2, num3, equalVal, tmp)) {
+                return false;
+            }
             equal = true;
-            continue;
         } else if(isdigit(equation[i])) {
             tmp += equation[i];
         } else {
             return false;
         }
     }
-    // TODO check the sum
-    return true;
+    if(tmp != "") {
+        if(!numAssign(num1exists, num2exists, equal, num1, num2, num3, equalVal, tmp)) {
+            return false;
+        }
+    }
+    return checkSum(num1, num2, num3, op1, op2, equalVal);
 }
 
  bool CControls::operatorAssign(bool num1Exists, bool num2Exists, bool equal, char &op1, char &op2, char operatorToBeAssigned) {
@@ -162,10 +174,10 @@ bool CControls::splitEquation(std::string equation, int &num1, int &num2, int &n
         return false;
     }
 
-    if(num1Exists) {
-        op1 = operatorToBeAssigned;
-    } else if(num2Exists) {
+    if(num2Exists) {
         op2 = operatorToBeAssigned;
+    } else if(num1Exists) {
+        op1 = operatorToBeAssigned;
     } else {
         return false;
     }
@@ -190,3 +202,47 @@ bool CControls::splitEquation(std::string equation, int &num1, int &num2, int &n
     value = "";
     return true;
  }
+
+ bool CControls::checkSum(int num1, int num2, int num3, char op1, char op2, int equal) {
+    int sum = 0, val = 0;
+    // Operator priority
+    if(op2 == '*' || op2 == '/') {
+        val = operation(num2, num3, op2);
+        sum = operation(num1, val, op1);
+    } else if(op2 != '?') {
+        val = operation(num1, num2, op1);
+        sum = operation(val, num3, op2);
+    } else {
+        sum = operation(num1, num2, op1);
+    }
+    return sum == equal;
+ }
+
+ bool CControls::gcd(int a, int b) {
+    while (b != 0) {
+        int temp = b;
+        b = a % b;
+        a = temp;
+    }
+    return a == 1 ? false : true;
+}
+
+int CControls::operation(int num1, int num2, char op) {
+    switch(op) {
+        case '+':
+            return num1 + num2;
+        case '-':
+            return num1 - num2 < 0 ? -1 : num1 - num2;
+        case '/':
+            if(num2 == 0 || !gcd(num1, num2)) {
+                return -1;
+            }
+            return num1 / num2;
+        case '*':
+            return num1 * num2;
+        default:
+            return -1;
+    }
+
+    return -1;
+}
