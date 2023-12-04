@@ -74,6 +74,18 @@ public:
      */
     void input(int &num1, int &num2, int &num3, int &equal, char &op1, char &op2);
 
+    /**
+     * @brief Resets all values of input
+     * 
+     * @param num1 
+     * @param num2 
+     * @param num3 
+     * @param equal 
+     * @param op1 
+     * @param op2 
+     */
+    void inputReset(int &num1, int &num2, int &num3, int &equal, char &op1, char &op2);
+
 private:
     /**
      * @brief Checks if equation is valid, Stores data to appropriate variables if it is

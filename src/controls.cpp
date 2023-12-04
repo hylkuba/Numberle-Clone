@@ -86,6 +86,15 @@ void CControls::storeEquation(char equation[], int lNum1, int lNum2, int lNum3, 
     }
 }
 
+void CControls::inputReset(int &num1, int &num2, int &num3, int &equal, char &op1, char &op2) {
+    num1 = -1;
+    num2 = -1;
+    num3 = -1;
+    equal = -1;
+    op1 = '?';
+    op2 = '?';
+}
+
 void CControls::input(int &num1, int &num2, int &num3, int &equal, char &op1, char &op2) {
     std::string input = "";
     num1 = -1;
@@ -100,12 +109,12 @@ void CControls::input(int &num1, int &num2, int &num3, int &equal, char &op1, ch
         if(splitEquation(input, num1, num2, num3, equal, op1, op2)) {
             break;
         }
-        std::cout << "Given equation is invalid!" << std::endl;
     }
 }
 
 bool CControls::splitEquation(std::string equation, int &num1, int &num2, int &num3, int &equalVal, char &op1, char &op2) {
     if(equation.length() != 8) {
+        std::cout << "Given equation is not long enough!" << std::endl;
         return false;
     }
     
@@ -232,7 +241,7 @@ int CControls::operation(int num1, int num2, char op) {
         case '+':
             return num1 + num2;
         case '-':
-            return num1 - num2 < 0 ? -1 : num1 - num2;
+            return num1 - num2;
         case '/':
             if(num2 == 0 || !gcd(num1, num2)) {
                 return -1;

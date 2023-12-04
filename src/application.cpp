@@ -12,9 +12,16 @@ int CApplication::run() {
     while(true) {
         generator.create(equation, leftEqNum1, leftEqNum2, leftEqNum3, rightEqNum, op1, op2);
 
-        controls.input(userNum1, userNum2, userNum3, userEqual, userOp1, userOp2);
+        while(true) {
+            controls.input(userNum1, userNum2, userNum3, userEqual, userOp1, userOp2);
+
+            controls.inputReset(userNum1, userNum2, userNum3, userEqual, userOp1, userOp2);
+        }
         controls.printEquation(equation);
+
+        std::cout << "Press ENTER to continue!" << std::endl;
         controls.waitForEnter();
+
         resetVar();
     }
 
