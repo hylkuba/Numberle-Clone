@@ -5,7 +5,6 @@
 
 #include "controls.h"
 #include "ui.h"
-#include "equation.h"
 #include "equationGen.h"
 
 class CApplication {

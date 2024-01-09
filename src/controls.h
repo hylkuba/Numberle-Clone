@@ -86,6 +86,35 @@ public:
      */
     void inputReset(int &num1, int &num2, int &num3, int &equal, char &op1, char &op2);
 
+    /**
+     * @brief Checks whether the inputted equation is same as generated
+     * 
+     * @param leftEqNum1 
+     * @param leftEqNum2 
+     * @param leftEqNum3 
+     * @param rightEqNum 
+     * @param op1 
+     * @param op2 
+     * @param userNum1 
+     * @param userNum2 
+     * @param userNum3 
+     * @param userEqual 
+     * @param userOp1 
+     * @param userOp2 
+     * @return true 
+     * @return false 
+     */
+    bool equationEqual(int leftEqNum1, int leftEqNum2, int leftEqNum3, int rightEqNum,
+        char op1, char op2, int userNum1, int userNum2, int userNum3, int userEqual,
+        char userOp1, char userOp2);
+
+    /**
+     * @brief Congratulations message
+     * 
+     * @param equation 
+     */
+    void congratulations(char equation[]);
+
 private:
     /**
      * @brief Checks if equation is valid, Stores data to appropriate variables if it is

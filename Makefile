@@ -23,7 +23,7 @@ HEADERS = $(wildcard src/*.h)
 
 DIR_NAME = bin
 
-OBJS = $(DIR_NAME)/main.o $(DIR_NAME)/application.o  $(DIR_NAME)/controls.o $(DIR_NAME)/ui.o $(DIR_NAME)/equation.o $(DIR_NAME)/equationGen.o
+OBJS = $(DIR_NAME)/main.o $(DIR_NAME)/application.o  $(DIR_NAME)/controls.o $(DIR_NAME)/ui.o $(DIR_NAME)/equationGen.o
 
 $(TARGET): $(OBJS)
 	$(LD) $(LDFLAGS) $(OBJS) -o $(TARGET)
@@ -61,20 +61,17 @@ la:
 #-----------------------------------------------------------------------
 # Object files dependencies
 $(DIR_NAME)/main.o: src/main.cpp src/application.h src/ui.h \
- src/controls.h src/equation.h src/equationGen.h
+ src/controls.h src/equationGen.h
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 $(DIR_NAME)/application.o: src/application.cpp src/application.h src/ui.h \
- src/controls.h src/equation.h src/equationGen.h
+ src/controls.h src/equationGen.h
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 $(DIR_NAME)/controls.o: src/controls.cpp src/controls.h src/ui.h
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 $(DIR_NAME)/ui.o: src/ui.cpp src/ui.h
-	$(CXX) $(CXXFLAGS) -c $< -o $@
-
-$(DIR_NAME)/equation.o: src/equation.cpp src/equation.h
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 $(DIR_NAME)/equationGen.o: src/equationGen.cpp src/equationGen.h

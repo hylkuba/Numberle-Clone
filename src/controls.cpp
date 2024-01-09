@@ -44,8 +44,7 @@ void CControls::printEquation(char equation[]) {
 void CControls::storeEquation(char equation[], int lNum1, int lNum2, int lNum3, int rNum, char op1, char op2) {
     int count = 0;
     int tmpCount = 0;
-    for (size_t i = lNum1; i > 0; tmpCount++)
-    {
+    for (size_t i = lNum1; i > 0; tmpCount++) {
         equation[count] = std::to_string(lNum1)[tmpCount];
         i /= 10;
         count++;
@@ -54,8 +53,7 @@ void CControls::storeEquation(char equation[], int lNum1, int lNum2, int lNum3, 
     count++;
 
     tmpCount = 0; 
-    for (size_t i = lNum2; i > 0; tmpCount++)
-    {
+    for (size_t i = lNum2; i > 0; tmpCount++) {
         equation[count] = std::to_string(lNum2)[tmpCount];
         i /= 10;
         count++;
@@ -78,8 +76,7 @@ void CControls::storeEquation(char equation[], int lNum1, int lNum2, int lNum3, 
     count++;
 
     tmpCount = 0; 
-    for (size_t i = rNum; i > 0; tmpCount++)
-    {
+    for (size_t i = rNum; i > 0; tmpCount++) {
         equation[count] = std::to_string(rNum)[tmpCount];
         i /= 10;
         count++;
@@ -104,8 +101,8 @@ void CControls::input(int &num1, int &num2, int &num3, int &equal, char &op1, ch
     op1 = '?';
     op2 = '?';
 
+    std::cin >> input;
     while(true) {
-        std::cin >> input;
         if(splitEquation(input, num1, num2, num3, equal, op1, op2)) {
             break;
         }
@@ -254,4 +251,19 @@ int CControls::operation(int num1, int num2, char op) {
     }
 
     return -1;
+}
+
+bool CControls::equationEqual(int leftEqNum1, int leftEqNum2, int leftEqNum3, int rightEqNum,
+        char op1, char op2, int userNum1, int userNum2, int userNum3, int userEqual,
+        char userOp1, char userOp2) {
+
+    return (leftEqNum1 == userNum1) && (leftEqNum2 == userNum2) &&
+        (leftEqNum3 == userNum3) && (rightEqNum == userEqual) &&
+        (op1 == userOp1) && (op2 == userOp2);
+}
+
+void CControls::congratulations(char equation[]) {
+    std::cout << "Congratulations, that was correct equation!!" << std::endl;
+
+    printEquation(equation);
 }

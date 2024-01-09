@@ -21,8 +21,9 @@ void CEquationGen::create(char equation[], int &lNum1, int &lNum2, int &lNum3, i
     int rndPos = spacePosition(generateProbability());
 
     if(rndPos == -1) return;
-    
-    switch(rndPos) {
+
+    fifthIndex(equation, lNum1, lNum2, rNum, op1);
+    /*switch(rndPos) {
         case 0:
            fifthIndex(equation, lNum1, lNum2, rNum, op1);
            lNum3 = -1;
@@ -37,7 +38,7 @@ void CEquationGen::create(char equation[], int &lNum1, int &lNum2, int &lNum3, i
         default:
             // Shouldn't ever happen
             std::cerr << "Invalid value of rndPos in CEquationGen::create()." << std::endl;
-    }
+    }*/
 }
 
 double CEquationGen::generateProbability() {
