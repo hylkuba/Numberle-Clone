@@ -11,7 +11,11 @@ int CApplication::run() {
     ui.separationLine();
     resetVar();
 
+    controls.welcomeMessage();
+
     while(true) {
+        std::cout << "Please input your equation" << std::endl;
+        
         generator.create(equation, leftEqNum1, leftEqNum2, leftEqNum3, rightEqNum, op1, op2);
 
         while(true) {
@@ -19,16 +23,15 @@ int CApplication::run() {
 
             if(controls.equationEqual(leftEqNum1, leftEqNum2, leftEqNum3, rightEqNum, op1, op2,
                 userNum1, userNum2, userNum3, userEqual, userOp1, userOp2)) {
-                std::cout << "BREAKED" << std::endl;
-                controls.waitForEnter();
+                break;
             }
             controls.printEquation(equation);
-            std::cout << leftEqNum1 << op1 << leftEqNum2  << "=" << rightEqNum << "  | " << leftEqNum3 << " " << op2 << std::endl;
-            std::cout << userNum1 << userOp1 << userNum2 << "=" << userEqual << "  | " << userNum3 << " " << userOp2 << std::endl;
+            /*std::cout << "real: " << leftEqNum1 << op1 << leftEqNum2  << "=" << rightEqNum << "  | " << leftEqNum3 << " " << op2 << std::endl;
+            std::cout << "user: " << userNum1 << userOp1 << userNum2 << "=" << userEqual << "  | " << userNum3 << " " << userOp2 << std::endl;*/
 
             controls.inputReset(userNum1, userNum2, userNum3, userEqual, userOp1, userOp2);
         }
-        controls.congratulations(equation);
+        controls.congratulationsMessage(equation);
 
         std::cout << "Press ENTER to continue!" << std::endl;
         controls.waitForEnter();

@@ -113,7 +113,13 @@ public:
      * 
      * @param equation 
      */
-    void congratulations(char equation[]);
+    void congratulationsMessage(char equation[]);
+
+    /**
+     * @brief Prints welcome message
+     * 
+     */
+    void welcomeMessage();
 
 private:
     /**

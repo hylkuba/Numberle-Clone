@@ -102,11 +102,7 @@ void CControls::input(int &num1, int &num2, int &num3, int &equal, char &op1, ch
     op2 = '?';
 
     std::cin >> input;
-    while(true) {
-        if(splitEquation(input, num1, num2, num3, equal, op1, op2)) {
-            break;
-        }
-    }
+    splitEquation(input, num1, num2, num3, equal, op1, op2);
 }
 
 bool CControls::splitEquation(std::string equation, int &num1, int &num2, int &num3, int &equalVal, char &op1, char &op2) {
@@ -154,7 +150,7 @@ bool CControls::splitEquation(std::string equation, int &num1, int &num2, int &n
                 return false;
             }
         } else if(equation[i] == '=') {
-            if(!num1exists || !num2exists || equal) {
+            if((!num1exists && !num2exists) || equal) {
                 return false;
             }
             if(!numAssign(num1exists, num2exists, equal, num1, num2, num3, equalVal, tmp)) {
@@ -262,8 +258,17 @@ bool CControls::equationEqual(int leftEqNum1, int leftEqNum2, int leftEqNum3, in
         (op1 == userOp1) && (op2 == userOp2);
 }
 
-void CControls::congratulations(char equation[]) {
+void CControls::congratulationsMessage(char equation[]) {
     std::cout << "Congratulations, that was correct equation!!" << std::endl;
 
     printEquation(equation);
+}
+
+void CControls::welcomeMessage() {
+    std::cout << "Welcome to " << "\033[1;32mNUMBERLE\033[0m"<< " clone.\nRefference: " << "\033[1;33mhttps://numberle.org/\033[0m" << std::endl;
+
+    std::cout << "\n\033[1;33mHow to play:\033[0m" << std::endl;
+    std::cout << " -> Enter your own equation" << std::endl;
+    std::cout << " -> Find out what numbers and signs are in the equation" << std::endl;
+    std::cout << " -> Try to solve the target equation\n" << std::endl;
 }
