@@ -35,8 +35,8 @@ void CControls::printEquation(char equation[]) {
     separator();
     for (size_t i = 0; i < 8; i++) {
         std::cout << equation[i];
-        separator();
     }
+    separator();
     std::cout << std::endl;
     separationLine();
 }
@@ -92,7 +92,7 @@ void CControls::inputReset(int &num1, int &num2, int &num3, int &equal, char &op
     op2 = '?';
 }
 
-void CControls::input(int &num1, int &num2, int &num3, int &equal, char &op1, char &op2) {
+std::string CControls::input(int &num1, int &num2, int &num3, int &equal, char &op1, char &op2) {
     std::string input = "";
     num1 = -1;
     num2 = -1;
@@ -102,7 +102,11 @@ void CControls::input(int &num1, int &num2, int &num3, int &equal, char &op1, ch
     op2 = '?';
 
     std::cin >> input;
-    splitEquation(input, num1, num2, num3, equal, op1, op2);
+    if(!splitEquation(input, num1, num2, num3, equal, op1, op2)) {
+        return "";
+    }
+
+    return input;
 }
 
 bool CControls::splitEquation(std::string equation, int &num1, int &num2, int &num3, int &equalVal, char &op1, char &op2) {
@@ -168,6 +172,9 @@ bool CControls::splitEquation(std::string equation, int &num1, int &num2, int &n
             return false;
         }
     }
+
+    if(num1 == -1 || num2 == -1 || equalVal == -1) return false;
+
     return checkSum(num1, num2, num3, op1, op2, equalVal);
 }
 
@@ -187,6 +194,10 @@ bool CControls::splitEquation(std::string equation, int &num1, int &num2, int &n
  }
 
  bool CControls::numAssign(bool &num1Exists, bool &num2Exists, bool &equal, int &num1, int &num2, int &num3, int &equalVal, std::string &value) {
+    if(value.size() == 0 || !isdigit(value[0])) {
+        return false;
+    }
+
     if(!num1Exists && !num2Exists && !equal) {
         num1 = stoi(value);
         num1Exists = true;
@@ -258,10 +269,31 @@ bool CControls::equationEqual(int leftEqNum1, int leftEqNum2, int leftEqNum3, in
         (op1 == userOp1) && (op2 == userOp2);
 }
 
+void CControls::equationCheck(std::string equation, std::string userEquation) {
+    for (size_t i = 0; i < 8; i++) {
+        if(userEquation[i] == equation[i]) {
+            std::cout << "\033[1;32m" << equation[i] << "\033[0m";
+        } else if(inEquation(equation, userEquation[i])) {
+            std::cout << "\033[1;33m" << userEquation[i] << "\033[0m";
+        } else {
+            std::cout << userEquation[i];
+        }
+    }
+    separator();
+    std::cout << std::endl;
+    separationLine();
+}
+
 void CControls::congratulationsMessage(char equation[]) {
     std::cout << "Congratulations, that was correct equation!!" << std::endl;
 
-    printEquation(equation);
+    std::cout << "\033[1;32m";
+    separator();
+    for (size_t i = 0; i < 8; i++) {
+        std::cout << equation[i];
+    }
+    separator();
+    std::cout << "\033[0m" << std::endl;
 }
 
 void CControls::welcomeMessage() {
@@ -271,4 +303,11 @@ void CControls::welcomeMessage() {
     std::cout << " -> Enter your own equation" << std::endl;
     std::cout << " -> Find out what numbers and signs are in the equation" << std::endl;
     std::cout << " -> Try to solve the target equation\n" << std::endl;
+}
+
+bool CControls::inEquation(std::string equation, char c) {
+    for (size_t i = 0; i < equation.size(); i++) {
+        if(c == equation[i]) return true;
+    }
+    return false;
 }

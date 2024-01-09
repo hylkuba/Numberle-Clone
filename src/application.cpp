@@ -15,17 +15,23 @@ int CApplication::run() {
 
     while(true) {
         std::cout << "Please input your equation" << std::endl;
-        
+
         generator.create(equation, leftEqNum1, leftEqNum2, leftEqNum3, rightEqNum, op1, op2);
 
         while(true) {
-            controls.input(userNum1, userNum2, userNum3, userEqual, userOp1, userOp2);
+            std::string userEquation = controls.input(userNum1, userNum2, userNum3, userEqual, userOp1, userOp2);
+            if(userEquation == "") {
+                std::cout << "Invalid equation!!" << std::endl;
+                continue;
+            }
 
             if(controls.equationEqual(leftEqNum1, leftEqNum2, leftEqNum3, rightEqNum, op1, op2,
                 userNum1, userNum2, userNum3, userEqual, userOp1, userOp2)) {
                 break;
             }
-            controls.printEquation(equation);
+            controls.equationCheck(equation, userEquation);
+
+            //controls.printEquation(equation);
             /*std::cout << "real: " << leftEqNum1 << op1 << leftEqNum2  << "=" << rightEqNum << "  | " << leftEqNum3 << " " << op2 << std::endl;
             std::cout << "user: " << userNum1 << userOp1 << userNum2 << "=" << userEqual << "  | " << userNum3 << " " << userOp2 << std::endl;*/
 

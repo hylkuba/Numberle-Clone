@@ -71,8 +71,9 @@ public:
      * @param equal 
      * @param op1 
      * @param op2 
+     * @return std::string
      */
-    void input(int &num1, int &num2, int &num3, int &equal, char &op1, char &op2);
+    std::string input(int &num1, int &num2, int &num3, int &equal, char &op1, char &op2);
 
     /**
      * @brief Resets all values of input
@@ -107,6 +108,14 @@ public:
     bool equationEqual(int leftEqNum1, int leftEqNum2, int leftEqNum3, int rightEqNum,
         char op1, char op2, int userNum1, int userNum2, int userNum3, int userEqual,
         char userOp1, char userOp2);
+
+    /**
+     * @brief Checks whether the position of characters are correct
+     * 
+     * @param equation 
+     * @param userEquation 
+     */
+    void equationCheck(std::string equation, std::string userEquation);
 
     /**
      * @brief Congratulations message
@@ -200,4 +209,14 @@ private:
      * @return int 
      */
     int operation(int num1, int num2, char op);
+
+    /**
+     * @brief Checks for occurance of character c in equation
+     * 
+     * @param equation 
+     * @param c 
+     * @return true 
+     * @return false 
+     */
+    bool inEquation(std::string equation, char c);
 };
