@@ -133,11 +133,8 @@ void CEquationGen::sixthIndex(char equation[], int &lNum1, int &lNum2, int &lNum
         // 1st case
         lNum3 = -1;
         op2 = '?';
-        /*
-            TODO: Create generation for which number will have how many digits
-        */
         if(generateProbability() < 0.5) {
-            // (2-2) xx+xx=xx || xx-xx=xx
+            // (2_2=2) xx+xx=xx || xx-xx=xx
             while(true) {
                 lNum1 = generateRandomNumber(2);
                 lNum2 = generateRandomNumber(2);
@@ -154,7 +151,7 @@ void CEquationGen::sixthIndex(char equation[], int &lNum1, int &lNum2, int &lNum
             }
 
         } else {
-            // (3-1) xxx-x=xx || xxx:x=xx
+            // (3_1=2) xxx-x=xx || xxx:x=xx
             while(true) {
                 lNum1 = generateRandomNumber(3);
                 lNum2 = generateRandomNumber(1);
@@ -173,8 +170,8 @@ void CEquationGen::sixthIndex(char equation[], int &lNum1, int &lNum2, int &lNum
         }
         controls.storeEquation(equation, lNum1, lNum2, -1, rNum, op1, '?');
     } else {
-        // !Keep it simple for now, no division here. Too complicated for now
-        // 2nd case (1-1-1) x+x+x=xx || x*x*x=xx || x*x-x=xx || x*x+x=xx
+        // TODO: Keep it simple for now, no division here. Too complicated for now, add more variate generations
+        // 2nd case (1_1_1=2) x+x+x=xx || x*x*x=xx || x*x-x=xx || x*x+x=xx
        while(true) {
             lNum1 = generateRandomNumber(1);
             lNum2 = generateRandomNumber(1);
@@ -202,7 +199,7 @@ void CEquationGen::sixthIndex(char equation[], int &lNum1, int &lNum2, int &lNum
     *1st case:
         *Num1 and Num2 exists
         !Num3 doesn't
-        ?Combinations of digit sizes (3-2), (2-3)
+        ?Combinations of digit sizes (3-2), (2-3) (not possible to make valid equation)
     *2nd case:
         *Num1 and Num2 and Num3 all exists
         ?Combinations of digit sizes (2-1-1), (1-2-1), (1-1-2)
@@ -213,14 +210,85 @@ void CEquationGen::seventhIndex(char equation[], int &lNum1, int &lNum2, int &lN
         // 1st case
         lNum3 = -1;
         op2 = '?';
-        /*
-            TODO: Create generation for which number will be 2 digits and which will be 3 digits
-        */
+
+        // xxx-xx=x || xxx/xx=x
+        while(true) {
+            lNum1 = generateRandomNumber(3);
+            lNum2 = generateRandomNumber(2);
+
+            if(gcd(lNum1, lNum2) && (lNum1 / lNum2 < 10)) {
+                op1 = '/';
+                rNum = lNum1 / lNum2;
+                break;
+            } else if((lNum1 - lNum2 > 0) && (lNum1 - lNum2 < 10)) {
+                op1 = '-';
+                rNum = lNum1 - lNum2;
+                break;
+            }
+        }
+        controls.storeEquation(equation, lNum1, lNum2, -1, rNum, op1, '?');
     } else {
         // 2nd case
-        /*
-            TODO: Create generation for which number will be 2 digits, rest are 1 digit
-        */
+       double chance = generateProbability();
+       if(chance < 0.4) {
+            // (2_1_1=1) xx*x*x=x || xx+x+x=x || // TODO add more possibilitiess
+            while(true) {
+                lNum1 = generateRandomNumber(2);
+                lNum2 = generateRandomNumber(1);
+                lNum3 = generateRandomNumber(1);
+
+                if(lNum1 * lNum2 * lNum3 < 10) {
+                    op1 = '*';
+                    op2 = '*';
+                    rNum = lNum1 * lNum2 * lNum3;
+                    break;
+                } else if(lNum1 + lNum2 + lNum3 < 10) {
+                    op1 = '+';
+                    op2 = '+';
+                    rNum = lNum1 + lNum2 + lNum3;
+                    break;
+                }
+            }
+       } else if(chance < 0.8) {
+            // (1_2_1=1)
+            while(true) {
+                lNum1 = generateRandomNumber(1);
+                lNum2 = generateRandomNumber(2);
+                lNum3 = generateRandomNumber(1);
+
+                if(lNum1 * lNum2 * lNum3 < 10) {
+                    op1 = '*';
+                    op2 = '*';
+                    rNum = lNum1 * lNum2 * lNum3;
+                    break;
+                } else if(lNum1 + lNum2 + lNum3 < 10) {
+                    op1 = '+';
+                    op2 = '+';
+                    rNum = lNum1 + lNum2 + lNum3;
+                    break;
+                }
+            }
+       } else {
+            // (1_1_2=1)
+            while(true) {
+                lNum1 = generateRandomNumber(1);
+                lNum2 = generateRandomNumber(1);
+                lNum3 = generateRandomNumber(2);
+
+                if(lNum1 * lNum2 * lNum3 < 10) {
+                    op1 = '*';
+                    op2 = '*';
+                    rNum = lNum1 * lNum2 * lNum3;
+                    break;
+                } else if(lNum1 + lNum2 + lNum3 < 10) {
+                    op1 = '+';
+                    op2 = '+';
+                    rNum = lNum1 + lNum2 + lNum3;
+                    break;
+                }
+            }
+       }
+       controls.storeEquation(equation, lNum1, lNum2, lNum3, rNum, op1, op2);
     }
 }
 
