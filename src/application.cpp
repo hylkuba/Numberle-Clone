@@ -30,8 +30,13 @@ int CApplication::run() {
 
         while(true) {
             std::string userEquation = controls.input(userNum1, userNum2, userNum3, userEqual, userOp1, userOp2);
+
             if(userEquation == "") {
                 std::cout << "Invalid equation!!" << std::endl;
+                continue;
+            } else if(userEquation == "HELP") {
+                displayEquations();
+                std::cout << "Equation should be equal: " << rightEqNum << std::endl;
                 continue;
             }
 

@@ -50,9 +50,6 @@ public:
     void create(char equation[], int &lNum1, int &lNum2, int &lNum3, int &rNum, char &op1, char &op2);
 
 private:
-    static const char operators[4];
-    static const char digits[10];
-
     /**
      * @brief Generates random double value between <0, 1)
      * 

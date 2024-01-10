@@ -102,6 +102,12 @@ std::string CControls::input(int &num1, int &num2, int &num3, int &equal, char &
     op2 = '?';
 
     std::cin >> input;
+
+    // Check if user is asking for help
+    if(input == "HELP") {
+        return input;
+    }
+
     if(!splitEquation(input, num1, num2, num3, equal, op1, op2)) {
         return "";
     }
@@ -272,11 +278,11 @@ bool CControls::equationEqual(int leftEqNum1, int leftEqNum2, int leftEqNum3, in
 void CControls::equationCheck(std::string equation, std::string userEquation) {
     for (size_t i = 0; i < 8; i++) {
         if(userEquation[i] == equation[i]) {
-            std::cout << "\033[1;32m" << equation[i] << "\033[0m";
+            green(userEquation[i]);
         } else if(inEquation(equation, userEquation[i])) {
-            std::cout << "\033[1;33m" << userEquation[i] << "\033[0m";
+            yellow(userEquation[i]);
         } else {
-            std::cout << userEquation[i];
+            gray(userEquation[i]);
         }
     }
     separator();
@@ -308,6 +314,10 @@ void CControls::welcomeMessage() {
     std::cout << " -> In each line enter your own correct equation to find out what numbers and arithmetic signs are in the equation." << std::endl;
     std::cout << " -> If the number or sign is in the equation, but in the wrong place, it will be highlighted in brown, if in the exact place, then in green." << std::endl;
     std::cout << " -> If there is no number or sign in the equation at all, the color will be gray. Can you guess the target equation in minimal amount of tries?" << std::endl;
+    
+    std::cout << "\nTo ask for help, write: ";
+    std::cout << "\033[1;33m\"HELP\"\033[0m" << std::endl;
+
     std::cout << std::endl;
 }
 

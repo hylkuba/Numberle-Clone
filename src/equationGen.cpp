@@ -10,9 +10,6 @@
 #include <cstdlib>
 #include <ctime>
 
-const char CEquationGen::operators[4] = {'+', '-', '*', '/'};
-const char CEquationGen::digits[10] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
-
 CEquationGen::CEquationGen() {
     std::srand(static_cast<unsigned int>(std::time(nullptr)));
 }
@@ -33,8 +30,7 @@ void CEquationGen::create(char equation[], int &lNum1, int &lNum2, int &lNum3, i
            sixthIndex(equation, lNum1, lNum2, lNum3, rNum, op1, op2);
            break;
         case 2:
-            sixthIndex(equation, lNum1, lNum2, lNum3, rNum, op1, op2);
-            //seventhIndex(equation, lNum1, lNum2, lNum3, rNum, op1, op2);
+            seventhIndex(equation, lNum1, lNum2, lNum3, rNum, op1, op2);
             break;
         default:
             // Shouldn't ever happen
@@ -250,7 +246,7 @@ void CEquationGen::seventhIndex(char equation[], int &lNum1, int &lNum2, int &lN
                 }
             }
        } else if(chance < 0.8) {
-            // (1_2_1=1)
+            // (1_2_1=1) x*xx*x=x || x+xx+x=x
             while(true) {
                 lNum1 = generateRandomNumber(1);
                 lNum2 = generateRandomNumber(2);

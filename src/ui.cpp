@@ -9,8 +9,7 @@
 
 void CUi::separationLine() {
     // Function to print a separation line
-    std::cout << "--------|" << std::endl;
-    
+    std::cout << "--------|" << std::endl;   
 }
 
 void CUi::separator() {
