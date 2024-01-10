@@ -35,16 +35,15 @@ int CApplication::run() {
                 continue;
             }
 
+            prevEquations.push_back(userEquation);
+            displayEquations();
+
             if(controls.equationEqual(leftEqNum1, leftEqNum2, leftEqNum3, rightEqNum, op1, op2,
                 userNum1, userNum2, userNum3, userEqual, userOp1, userOp2)) {
                 break;
             }
-            controls.equationCheck(equation, userEquation);
-            controls.printEquation(equation);
 
             //controls.printEquation(equation);
-            /*std::cout << "real: " << leftEqNum1 << op1 << leftEqNum2  << "=" << rightEqNum << "  | " << leftEqNum3 << " " << op2 << std::endl;
-            std::cout << "user: " << userNum1 << userOp1 << userNum2 << "=" << userEqual << "  | " << userNum3 << " " << userOp2 << std::endl;*/
 
             controls.inputReset(userNum1, userNum2, userNum3, userEqual, userOp1, userOp2);
         }
@@ -53,6 +52,7 @@ int CApplication::run() {
         std::cout << "Press ENTER to continue!" << std::endl;
         controls.waitForEnter();
 
+        // Reset all important values
         std::system(CLEAR_SCREEN);
         resetVar();
     }
@@ -61,6 +61,8 @@ int CApplication::run() {
 }
 
 void CApplication::resetVar() {
+    prevEquations.clear();
+
     leftEqNum1 = -1;
     leftEqNum2 = -1;
     leftEqNum3 = -1;
@@ -70,5 +72,13 @@ void CApplication::resetVar() {
 
     for (size_t i = 0; i < 8; i++) {
         equation[i] = '0';
-    }   
+    }
+}
+
+void CApplication::displayEquations() {
+    std::system(CLEAR_SCREEN);
+    
+    for(const auto &eq : prevEquations) {
+        controls.equationCheck(equation, eq);
+    }
 }

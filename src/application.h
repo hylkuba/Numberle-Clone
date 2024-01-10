@@ -7,6 +7,8 @@
 #include "ui.h"
 #include "equationGen.h"
 
+#include <vector>
+
 class CApplication {
 public:
     /**
@@ -49,6 +51,12 @@ private:
     void resetVar();
 
     /**
+     * @brief Displays all previous equations
+     * 
+     */
+    void displayEquations();
+
+    /**
      * @brief Left equation numbers values
      * 
      */
@@ -83,6 +91,12 @@ private:
      * 
      */
     char equation[8];
+
+    /**
+     * @brief Vector that stores all previous equations
+     * 
+     */
+    std::vector<std::string> prevEquations;
 
     /**
      * @brief Equation generator object

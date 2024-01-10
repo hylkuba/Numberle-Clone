@@ -281,7 +281,6 @@ void CControls::equationCheck(std::string equation, std::string userEquation) {
     }
     separator();
     std::cout << std::endl;
-    separationLine();
 }
 
 void CControls::congratulationsMessage(char equation[]) {
@@ -289,10 +288,15 @@ void CControls::congratulationsMessage(char equation[]) {
 
     std::cout << "\033[1;32m";
     separator();
+    separationLine();
+    separator();
     for (size_t i = 0; i < 8; i++) {
         std::cout << equation[i];
     }
     separator();
+    std::cout << std::endl;
+    separator();
+    separationLine();
     std::cout << "\033[0m" << std::endl;
 }
 
@@ -300,9 +304,11 @@ void CControls::welcomeMessage() {
     std::cout << "Welcome to " << "\033[1;32mNUMBERLE\033[0m"<< " clone.\nRefference: " << "\033[1;33mhttps://numberle.org/\033[0m" << std::endl;
 
     std::cout << "\n\033[1;33mHow to play:\033[0m" << std::endl;
-    std::cout << " -> Enter your own equation" << std::endl;
-    std::cout << " -> Find out what numbers and signs are in the equation" << std::endl;
-    std::cout << " -> Try to solve the target equation\n" << std::endl;
+    std::cout << " -> You need to accurately guess the mathematical equation." << std::endl;
+    std::cout << " -> In each line enter your own correct equation to find out what numbers and arithmetic signs are in the equation." << std::endl;
+    std::cout << " -> If the number or sign is in the equation, but in the wrong place, it will be highlighted in brown, if in the exact place, then in green." << std::endl;
+    std::cout << " -> If there is no number or sign in the equation at all, the color will be gray. Can you guess the target equation in minimal amount of tries?" << std::endl;
+    std::cout << std::endl;
 }
 
 bool CControls::inEquation(std::string equation, char c) {
