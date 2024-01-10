@@ -6,15 +6,25 @@
 #include "application.h"
 
 #include <iostream>
+#include <cstdlib>
+
+#ifdef _WIN32
+    #define CLEAR_SCREEN "cls"
+#else
+    #define CLEAR_SCREEN "clear"
+#endif
+
 
 int CApplication::run() {
-    ui.separationLine();
+    
+    std::system(CLEAR_SCREEN);
     resetVar();
 
     controls.welcomeMessage();
 
     while(true) {
-        std::cout << "Please input your equation" << std::endl;
+        std::cout << "Please input your equation. Of length 8" << std::endl;
+        controls.separationLine();
 
         generator.create(equation, leftEqNum1, leftEqNum2, leftEqNum3, rightEqNum, op1, op2);
 
@@ -30,6 +40,7 @@ int CApplication::run() {
                 break;
             }
             controls.equationCheck(equation, userEquation);
+            controls.printEquation(equation);
 
             //controls.printEquation(equation);
             /*std::cout << "real: " << leftEqNum1 << op1 << leftEqNum2  << "=" << rightEqNum << "  | " << leftEqNum3 << " " << op2 << std::endl;
@@ -42,6 +53,7 @@ int CApplication::run() {
         std::cout << "Press ENTER to continue!" << std::endl;
         controls.waitForEnter();
 
+        std::system(CLEAR_SCREEN);
         resetVar();
     }
 

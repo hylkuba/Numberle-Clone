@@ -3,7 +3,7 @@
 #    * @date 30.11.2023
 #   */
 
-NAME = wordle
+NAME = numberle
 
 ifeq ($(shell uname),Linux)
     CXX = g++

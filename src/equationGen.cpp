@@ -22,8 +22,8 @@ void CEquationGen::create(char equation[], int &lNum1, int &lNum2, int &lNum3, i
 
     if(rndPos == -1) return;
 
-    fifthIndex(equation, lNum1, lNum2, rNum, op1);
-    /*switch(rndPos) {
+    //fifthIndex(equation, lNum1, lNum2, rNum, op1);
+    switch(rndPos) {
         case 0:
            fifthIndex(equation, lNum1, lNum2, rNum, op1);
            lNum3 = -1;
@@ -33,12 +33,13 @@ void CEquationGen::create(char equation[], int &lNum1, int &lNum2, int &lNum3, i
            sixthIndex(equation, lNum1, lNum2, lNum3, rNum, op1, op2);
            break;
         case 2:
-            seventhIndex(equation, lNum1, lNum2, lNum3, rNum, op1, op2);
+            sixthIndex(equation, lNum1, lNum2, lNum3, rNum, op1, op2);
+            //seventhIndex(equation, lNum1, lNum2, lNum3, rNum, op1, op2);
             break;
         default:
             // Shouldn't ever happen
             std::cerr << "Invalid value of rndPos in CEquationGen::create()." << std::endl;
-    }*/
+    }
 }
 
 double CEquationGen::generateProbability() {
@@ -121,7 +122,7 @@ void CEquationGen::fifthIndex(char equation[], int &lNum1, int &lNum2, int &rNum
     *1st case:
         *Num1 and Num2 exists
         !Num3 doesn't
-        ?Combinations of digit sizes (1-3), (2-2), (3-1)
+        ?Combinations of digit sizes (1-3) (can't exist), (2-2), (3-1)
     *2nd case:
         *Num1 and Num2 and Num3 all exists
         ?The only possible combination (1-1-1)
@@ -132,26 +133,66 @@ void CEquationGen::sixthIndex(char equation[], int &lNum1, int &lNum2, int &lNum
         // 1st case
         lNum3 = -1;
         op2 = '?';
-        if(generateProbability() < 0.3) {
-            // (1-3)
-        } else if(generateProbability() < 0.7) {
-            // (2-2)
-        } else {
-            // (3-1)
-        }
         /*
             TODO: Create generation for which number will have how many digits
         */
+        if(generateProbability() < 0.5) {
+            // (2-2) xx+xx=xx || xx-xx=xx
+            while(true) {
+                lNum1 = generateRandomNumber(2);
+                lNum2 = generateRandomNumber(2);
+
+                if(lNum1 + lNum2 < 100) {
+                    op1 = '+';
+                    rNum = lNum1 + lNum2;
+                    break;
+                } else if(lNum1 - lNum2 > 0) {
+                    op1 = '-';
+                    rNum = lNum1 - lNum2;
+                    break;
+                }
+            }
+
+        } else {
+            // (3-1) xxx-x=xx || xxx:x=xx
+            while(true) {
+                lNum1 = generateRandomNumber(3);
+                lNum2 = generateRandomNumber(1);
+
+                if(gcd(lNum1, lNum2)) {
+                    op1 = '/';
+                    rNum = lNum1 / lNum2;
+                    break;
+                } else if(lNum1 - lNum2 < 100) {
+                    op1 = '-';
+                    rNum = lNum1 - lNum2;
+                    break;
+                }
+            }
+
+        }
         controls.storeEquation(equation, lNum1, lNum2, -1, rNum, op1, '?');
     } else {
-        // 2nd case
-        lNum1 = generateRandomNumber(1);
-        lNum2 = generateRandomNumber(1);
-        lNum3 = generateRandomNumber(1);
+        // !Keep it simple for now, no division here. Too complicated for now
+        // 2nd case (1-1-1) x+x+x=xx || x*x*x=xx || x*x-x=xx || x*x+x=xx
+       while(true) {
+            lNum1 = generateRandomNumber(1);
+            lNum2 = generateRandomNumber(1);
+            lNum3 = generateRandomNumber(1);
 
-        /*
-            TODO: CHECK VALIDITY OF OPERATORS BETWEEN TWO NUMBERS. CREATE LOOP TO GENERATE RANDOM OPERATOR
-        */
+            if((lNum1 * lNum2 * lNum3 >= 10) && (lNum1 * lNum2 * lNum3 < 100)) {
+                op1 = '*';
+                op2 = '*';
+                rNum = lNum1 * lNum2 * lNum3;
+                break;
+            } else if(lNum1 + lNum2 + lNum3 >= 10) {
+                op1 = '+';
+                op2 = '+';
+                rNum = lNum1 + lNum2 + lNum3;
+                break;
+            }
+        }
+
        controls.storeEquation(equation, lNum1, lNum2, lNum3, rNum, op1, op2);
     }
 }
